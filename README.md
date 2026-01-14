@@ -155,7 +155,7 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 ### Issues
 
-If you encounter any issues, please file them on the [issue tracker]().
+If you encounter any issues, please file them on the [issue tracker](https://github.com/reyn-flores/simple_media_picker/issues).
 
 ## License
 
