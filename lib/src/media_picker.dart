@@ -9,12 +9,14 @@ class MediaPicker {
   static Future<List<AssetEntity>?> pickMedia(
     BuildContext context, {
     String? confirmButtonText,
+    bool allowMultiple = true,
   }) async {
     final result = await Navigator.push<List<AssetEntity>>(
       context,
       MaterialPageRoute(
         builder: (context) => MediaPickerConfig(
           confirmButtonText: confirmButtonText,
+          allowMultiple: allowMultiple,
           child: const AlbumPickerPage(),
         ),
       ),

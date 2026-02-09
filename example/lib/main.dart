@@ -35,6 +35,7 @@ class _HomePageState extends State<HomePage> {
     final result = await MediaPicker.pickMedia(
       context,
       confirmButtonText: 'Select',
+      allowMultiple: false,
     );
 
     if (result != null && result.isNotEmpty) {

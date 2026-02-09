@@ -21,7 +21,10 @@ class MockAssetEntity extends AssetEntity {
 
 class MockMediaPickerCubit extends Cubit<MediaPickerState>
     implements MediaPickerCubit {
-  MockMediaPickerCubit(super.initialState);
+  MockMediaPickerCubit(super.initialState, {this.allowMultiple = true});
+
+  @override
+  final bool allowMultiple;
 
   @override
   void toggleSelectedAsset(String id) {
@@ -29,7 +32,13 @@ class MockMediaPickerCubit extends Cubit<MediaPickerState>
     if (selectedAssets.contains(id)) {
       selectedAssets.remove(id);
     } else {
-      selectedAssets.add(id);
+      if (allowMultiple) {
+        selectedAssets.add(id);
+      } else {
+        selectedAssets
+          ..clear()
+          ..add(id);
+      }
     }
     emit(state.copyWith(selectedAssets: selectedAssets));
   }
@@ -53,8 +62,9 @@ void main() {
     Widget buildTestWidget(
       MediaPickerState state, {
       String? confirmButtonText,
+      bool allowMultiple = true,
     }) {
-      mockCubit = MockMediaPickerCubit(state);
+      mockCubit = MockMediaPickerCubit(state, allowMultiple: allowMultiple);
       return MaterialApp(
         home: BlocProvider<MediaPickerCubit>.value(
           value: mockCubit,

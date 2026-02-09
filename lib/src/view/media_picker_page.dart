@@ -8,16 +8,21 @@ class MediaPickerPage extends StatelessWidget {
   const MediaPickerPage({
     required this.assetPathEntity,
     this.confirmButtonText,
+    this.allowMultiple = true,
     super.key,
   });
 
   final AssetPathEntity assetPathEntity;
   final String? confirmButtonText;
+  final bool allowMultiple;
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => MediaPickerCubit(assetPathEntity: assetPathEntity),
+      create: (context) => MediaPickerCubit(
+        assetPathEntity: assetPathEntity,
+        allowMultiple: allowMultiple,
+      ),
       child: MediaPickerContent(confirmButtonText: confirmButtonText),
     );
   }

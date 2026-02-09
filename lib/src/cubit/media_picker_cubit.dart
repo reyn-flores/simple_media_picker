@@ -5,14 +5,17 @@ import 'package:photo_manager/photo_manager.dart';
 part 'media_picker_state.dart';
 
 class MediaPickerCubit extends Cubit<MediaPickerState> {
-  MediaPickerCubit({required AssetPathEntity assetPathEntity})
-    : super(MediaPickerState(assetPathEntity: assetPathEntity)) {
+  MediaPickerCubit({
+    required AssetPathEntity assetPathEntity,
+    this.allowMultiple = true,
+  }) : super(MediaPickerState(assetPathEntity: assetPathEntity)) {
     init();
   }
 
   static const int _pageSize = 50;
   int _currentPage = 0;
   bool _hasMoreItems = true;
+  final bool allowMultiple;
 
   Future<void> init() async {
     await _loadNextPage(isInitial: true);
@@ -58,7 +61,13 @@ class MediaPickerCubit extends Cubit<MediaPickerState> {
     if (selectedAssets.contains(id)) {
       selectedAssets.remove(id);
     } else {
-      selectedAssets.add(id);
+      if (allowMultiple) {
+        selectedAssets.add(id);
+      } else {
+        selectedAssets
+          ..clear()
+          ..add(id);
+      }
     }
 
     emit(state.copyWith(selectedAssets: selectedAssets));

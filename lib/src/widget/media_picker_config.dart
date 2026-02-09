@@ -4,10 +4,12 @@ class MediaPickerConfig extends InheritedWidget {
   const MediaPickerConfig({
     required super.child,
     this.confirmButtonText,
+    this.allowMultiple = true,
     super.key,
   });
 
   final String? confirmButtonText;
+  final bool allowMultiple;
 
   static MediaPickerConfig? maybeOf(BuildContext context) {
     return context.dependOnInheritedWidgetOfExactType<MediaPickerConfig>();
@@ -21,6 +23,7 @@ class MediaPickerConfig extends InheritedWidget {
 
   @override
   bool updateShouldNotify(MediaPickerConfig oldWidget) {
-    return confirmButtonText != oldWidget.confirmButtonText;
+    return confirmButtonText != oldWidget.confirmButtonText ||
+        allowMultiple != oldWidget.allowMultiple;
   }
 }

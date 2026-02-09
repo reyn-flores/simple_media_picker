@@ -24,14 +24,14 @@ class AlbumPickerItem extends StatelessWidget {
       title: Text(album.name),
       subtitle: Text('${album.assetCount}'),
       onTap: () async {
+        final config = MediaPickerConfig.of(context);
         final result = await Navigator.push(
           context,
           MaterialPageRoute<List<AssetEntity>>(
             builder: (_) => MediaPickerPage(
               assetPathEntity: album.assetPathEntity,
-              confirmButtonText: MediaPickerConfig.of(
-                context,
-              ).confirmButtonText,
+              confirmButtonText: config.confirmButtonText,
+              allowMultiple: config.allowMultiple,
             ),
           ),
         );
