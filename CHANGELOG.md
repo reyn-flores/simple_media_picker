@@ -11,3 +11,8 @@ All notable changes to this project will be documented in this file.
 * Lazy loading with pagination
 * Customizable confirm button text
 * Material 3 design
+
+## 1.0.0
+
+### Added
+* Major feature: toggle to enable or disable multiple selection
