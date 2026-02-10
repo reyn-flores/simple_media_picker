@@ -1,6 +1,6 @@
 name: simple_media_picker
 description: A Flutter plugin for easy media picking with album browsing, multi-selection support, and lazy loading.
-version: 1.0.0
+version: 1.0.1
 homepage: https://github.com/reyn-flores/simple_media_picker
 repository: https://github.com/reyn-flores/simple_media_picker
 

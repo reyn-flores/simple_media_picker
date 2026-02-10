@@ -16,3 +16,8 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 * Major feature: toggle to enable or disable multiple selection
+
+## 1.0.1
+
+### Fixed
+* Optimize pagination to prevent concurrent requests and improve scroll and thumbnail performance
