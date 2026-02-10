@@ -24,7 +24,30 @@ class MediaPickerItem extends StatelessWidget {
           Positioned.fill(
             child: ClipRRect(
               borderRadius: BorderRadius.circular(8),
-              child: AssetEntityImage(asset, fit: BoxFit.cover),
+              child: AssetEntityImage(
+                asset,
+                fit: BoxFit.cover,
+                isOriginal: false,
+                // Use smaller thumbnails for grid
+                thumbnailSize: const ThumbnailSize.square(150),
+                // Handle corrupted/unsupported files gracefully
+                errorBuilder: (context, error, stackTrace) {
+                  return Container(
+                    color: Colors.grey[300],
+                    child: const Icon(
+                      Icons.broken_image_outlined,
+                      color: Colors.grey,
+                    ),
+                  );
+                },
+                // Show placeholder while loading
+                frameBuilder: (context, child, frame, wasSynchronouslyLoaded) {
+                  if (wasSynchronouslyLoaded || frame != null) {
+                    return child;
+                  }
+                  return Container(color: Colors.grey[200]);
+                },
+              ),
             ),
           ),
           if (asset.type == AssetType.video) ...[

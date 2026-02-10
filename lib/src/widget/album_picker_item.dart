@@ -18,7 +18,30 @@ class AlbumPickerItem extends StatelessWidget {
         child: SizedBox(
           height: 48,
           width: 48,
-          child: AssetEntityImage(album.coverAsset, fit: BoxFit.cover),
+          child: AssetEntityImage(
+            album.coverAsset,
+            fit: BoxFit.cover,
+            isOriginal: false,
+            // Use smaller thumbnails for grid
+            thumbnailSize: const ThumbnailSize.square(100),
+            // Handle corrupted/unsupported files gracefully
+            errorBuilder: (context, error, stackTrace) {
+              return Container(
+                color: Colors.grey[300],
+                child: const Icon(
+                  Icons.broken_image_outlined,
+                  color: Colors.grey,
+                ),
+              );
+            },
+            // Show placeholder while loading
+            frameBuilder: (context, child, frame, wasSynchronouslyLoaded) {
+              if (wasSynchronouslyLoaded || frame != null) {
+                return child;
+              }
+              return Container(color: Colors.grey[200]);
+            },
+          ),
         ),
       ),
       title: Text(album.name),

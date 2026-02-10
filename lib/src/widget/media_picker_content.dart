@@ -70,6 +70,7 @@ class MediaPickerContent extends StatelessWidget {
     }
 
     return CustomScrollView(
+      cacheExtent: 250,
       slivers: [
         SliverPadding(
           padding: const EdgeInsets.only(left: 16, right: 16, bottom: 32),
@@ -80,9 +81,13 @@ class MediaPickerContent extends StatelessWidget {
               crossAxisSpacing: 4,
               mainAxisSpacing: 4,
             ),
+            addAutomaticKeepAlives: false,
             itemBuilder: (context, index) {
               if (index >= state.assets.length) {
-                _cubit(context).loadMore();
+                // Only trigger loadMore if not already loading
+                if (!state.isPaginationLoading) {
+                  _cubit(context).loadMore();
+                }
                 return const Center(
                   child: SizedBox(
                     height: 24,
